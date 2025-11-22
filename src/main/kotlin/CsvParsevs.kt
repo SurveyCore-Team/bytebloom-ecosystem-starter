@@ -1,16 +1,14 @@
-import com.bytebloom.model.raw.TeamRaw
 import java.io.File
-
-fun parseTeamData(): List<TeamRaw>{
-    val result = mutableListOf<TeamRaw>()//Create Empty List
-    val lines = File("src/main/resources/teams.csv").readLines()//Read The File
-
-    for (i in 1 until lines.size){
-        val parts = lines[i].split(",")
-        val team = TeamRaw(parts[0], parts[1], parts[2])
-        result.add(team)
-
+import com.bytebloom.model.raw.PerformanceRaw
+fun parsePerformanceData():List<PerformanceRaw>{
+    val file = File ("src/main/resources/performance.csv")
+    val lines = file .readLines().drop(1)
+    val space = lines.map { line ->
+        val space1 = line.split(",")
+        PerformanceRaw(menteeId = space1[0],
+            submissionId= space1[1],
+            submissionType= space1[2],
+            score=space1[3])
     }
-    return result
-
+    return space
 }
