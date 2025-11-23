@@ -1,8 +1,7 @@
-🌱 ByteBloom Ecosystem – Kotlin Implementation
+🌱 ByteBloom Ecosystem – Team Project
 
-The ByteBloom Ecosystem is a Kotlin-based project designed to read CSV data, transform it into structured models, and generate simple analytical reports via a clean CLI interface.
-
-This repository includes all components needed to parse and organize the data for mentees, teams, and performance tracking.
+This repository contains our team’s implementation of the ByteBloom Ecosystem project using Kotlin.
+The project reads data from CSV files (mentees.csv, teams.csv, performance.csv) and converts them into clean models to generate simple reports.
 
 🚀 How to Run the Project
 
@@ -21,17 +20,15 @@ Click Run ▶
 
 Once executed, the CLI will start and display multiple data insights and reports.
 
-📂 Included CSV Files
 
-The project loads and processes the following files:
+Project Structure
+	•	Main.kt – Entry point
+	•	parsers/ – CSV parsing functions
+	•	data/ – Raw data classes
+	•	models/ – Processed models
+	•	resources/ – CSV files
 
-mentees.csv
 
-teams.csv
-
-performance.csv
-
-These files are stored inside src/main/resources/.
 
 
 
