@@ -1,6 +1,13 @@
 
 fun main() {
-    println("ByteBloom Academy: Ecosystem Project Starter")
-    println("✅ Project setup is correct and runnable.")
 
-}
+        val mentees = parseMenteeData()
+        val teams = parseTeamData()
+        val performance = parsePerformanceData()
+
+        println("Mentee count = ${mentees.size}")
+        println("Team count = ${teams.size}")
+        println("Performance rows = ${performance.size}")
+    }
+
+
