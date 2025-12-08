@@ -1,0 +1,23 @@
+[33m8568fee[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mConvert-list-to-Map[m[33m, [m[1;31morigin/Convert-list-to-Map[m[33m)[m Convert lists to Map
+[33m5233523[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m Create Main.kt entry point for the project
+[33m1ac698c[m add fun parseMenteeData
+[33mc54e310[m Merge branch 'master' of https://github.com/raghad-abbas/bytebloom-ecosystem-starter
+[33mb8edf24[m Update README.md
+[33m0cb41dc[m Merge remote-tracking branch 'origin/master'
+[33m5dc7f97[m Edit the parseTeamData
+[33md6eac7f[m Update README.md
+[33mc9b8ea0[m Update README.md
+[33md1b8b8e[m Update README.md
+[33mfc69fa3[m Merge branch 'master' of https://github.com/raghad-abbas/bytebloom-ecosystem-starter
+[33m8f82eea[m add commit
+[33m7391a8a[m add data to fill
+[33m7464d4a[m Add function Performance
+[33m57c6564[m Merge remote-tracking branch 'origin/master'
+[33m31fb121[m Added performance parser function
+[33m568b171[m alaahusam
+[33m1be5ce9[m add data to fill
+[33ma64a7fb[m add commit method
+[33m375b5a1[m add week2
+[33me7396a2[m Initialize ByteBloom Academy project with starter code, resources, and documentation
+[33m8afd6f3[m Update .gitignore to exclude IntelliJ and Gradle project files
+[33m4333b3f[m Happy initial commit!
