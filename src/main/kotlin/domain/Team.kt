@@ -4,5 +4,5 @@ data class Team (
     val teamId: String,
     val submissionId: String,
     val mentorLead: String,
-    val mentees: List<Mentee> ?
+    val mentees: MutableList<String> ?
 )
