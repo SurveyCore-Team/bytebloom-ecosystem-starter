@@ -79,18 +79,6 @@ class DomainBuilder {
         }.toMutableList()
         
     }
-    private fun createsubmissinDomainLists(PerformanceRawList: MutableList<PerformanceRaw>){
-        this.performanceSubmission = PerformanceRawList.map { performanceSubmissionRaw ->
-            PerformanceSubmission(
-                menteeId = performanceSubmissionRaw.menteeId,
-                submissionId = performanceSubmissionRaw.submissionId,
-                submissionType = performanceSubmissionRaw.submissionType,
-                score = performanceSubmissionRaw.score
-            )
-
-        }.toMutableList()
-    }
-
     private fun createMenteeDomainMap(){
         this.menteeMap = this.mentee?.associateBy { it.menteeId }?.toMutableMap()
     }
@@ -100,5 +88,7 @@ class DomainBuilder {
     private fun createperformanceMap(){
         this.performanceMap = this.performanceSubmission?.groupBy { it.menteeId }?.toMutableMap()
     }
+
+
 }
 
