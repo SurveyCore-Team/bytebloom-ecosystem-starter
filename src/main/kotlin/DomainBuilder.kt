@@ -101,5 +101,8 @@ class DomainBuilder {
         this.SubmissionseMap = this.SubmissionsDomainList.groupBy { it.menteeId }.toMutableMap()
 
     }
+    fun getMenteeList(): MutableList<Mentee> {
+        return this.menteesDomainList
+    }
 }
 
