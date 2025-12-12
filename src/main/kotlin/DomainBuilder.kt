@@ -35,13 +35,13 @@ class DomainBuilder {
     }
     private fun createLinkes(){
          for(Raw in menteesDomainList) {
-             val mentee = menteesMap[Raw.menteeId]
+             val mentee = menteesMap[Raw.Id]
              val team = teamsMap[Raw.teamId]
              if (mentee != null) {
                  if (team != null) {
-                     team.mentees.add(Raw.menteeId)
+                     team.mentees.add(Raw.Id)
                  }
-                 val submissions = SubmissionseMap[Raw.menteeId]
+                 val submissions = SubmissionseMap[Raw.Id]
                  if (submissions != null) {
                      submissions.toMutableList()
                      mentee.submissions = submissions.map {
@@ -54,7 +54,7 @@ class DomainBuilder {
     private fun createMenteeDomainLists(menteeRawList: MutableList<MenteeRaw>) {
         this.menteesDomainList = menteeRawList.map { menteeRaw ->
             Mentee(
-                menteeId = menteeRaw.Id,
+                Id = menteeRaw.Id,
                 name = menteeRaw.name,
                 teamId = menteeRaw.teamId,
                 submissions = mutableListOf<String>()
@@ -82,7 +82,7 @@ class DomainBuilder {
         }.toMutableList()
     }
     private fun createMenteeDomainMap(){
-        this.menteesMap = this.menteesDomainList.associateBy { it.menteeId }.toMutableMap()
+        this.menteesMap = this.menteesDomainList.associateBy { it.Id }.toMutableMap()
     }
     private fun createTeamDomainMap(){
         this.teamsMap = this.teamsDomainList.associateBy { it.Id }.toMutableMap()
