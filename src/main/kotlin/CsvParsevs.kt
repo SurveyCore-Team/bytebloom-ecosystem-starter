@@ -19,13 +19,9 @@ fun parsePerformanceData():List<PerformanceRaw>{
             score= columns[3])
     }
 }
-
-
-
-
 fun parseTeamData(): List<TeamRaw>{
     val teamsList = mutableListOf<TeamRaw>()
-    for (lineIndex in 1 until teamFileLines.size){ //Start From Second Line.
+    for (lineIndex in 0 until teamFileLines.size){ //Start From Second Line.
         val columns = teamFileLines[lineIndex].split(",") //Divid The Line to Colunms.
         val teamRecord = TeamRaw(columns[0],
                               columns[1],
@@ -35,9 +31,6 @@ fun parseTeamData(): List<TeamRaw>{
     }
     return teamsList
 }
-
-
-
 fun parseMenteeData(): List<MenteeRaw> {
 
     return menteeFileLines.map { line ->
