@@ -1,12 +1,15 @@
 package repositories
 
-import datasource.CsvEcosystemDatasource
+import datasource.EcosystemDatasource
 import domain.PerformanceSubmission
+import models.PerformanceSubmissionRaw
 
-class CsvPerformanceSubmissionRepository : PerformanceSubmissionRepository {
-    fun mappingPerformanceSubmissionRawToPerformanceSubmission(datasource: CsvEcosystemDatasource):
-            List<PerformanceSubmission> {
-        return datasource.parsePerformanceSubmissionRaw().map { performanceSubmissionRaw ->
+class CsvPerformanceSubmissionRepository(private val datasource: EcosystemDatasource) :
+    PerformanceSubmissionRepository {
+    fun mappingPerformanceSubmissionRawToPerformanceSubmission(
+        dataPerformanceSubmissions: List<PerformanceSubmissionRaw>
+    ): List<PerformanceSubmission> {
+        return dataPerformanceSubmissions.map { performanceSubmissionRaw ->
             PerformanceSubmission(
                 performanceSubmissionRaw.id,
                 performanceSubmissionRaw.type,
@@ -17,7 +20,9 @@ class CsvPerformanceSubmissionRepository : PerformanceSubmissionRepository {
     }
 
     override fun getAllPerformanceSubmission(): List<PerformanceSubmission> {
-        val dataSource = CsvEcosystemDatasource()
-        return mappingPerformanceSubmissionRawToPerformanceSubmission(dataSource)
+        val dataAllPerformanceSubmission = datasource.getAllPerformanceSubmissionRaw()
+        return mappingPerformanceSubmissionRawToPerformanceSubmission(
+            dataAllPerformanceSubmission
+        )
     }
 }
