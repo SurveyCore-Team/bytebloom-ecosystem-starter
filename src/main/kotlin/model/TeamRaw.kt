@@ -1,8 +1,8 @@
-package models
+package model
 
 data class TeamRaw(
     val id :String,
     val name: String,
     val mentor: String,
-    val members: List<MenteeRaw>
+    var members: List<MenteeRaw>
 )

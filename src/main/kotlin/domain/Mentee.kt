@@ -1,6 +1,6 @@
 package domain
 
-import models.AttendanceRaw
+import model.AttendanceRaw
 
 data class Mentee(
     val id: String,
