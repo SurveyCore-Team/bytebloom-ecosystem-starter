@@ -1,6 +1,6 @@
-package repositories
+package domain.repository.contracts
 
-import domain.PerformanceSubmission
+import domain.model.PerformanceSubmission
 
 interface PerformanceSubmissionRepository {
     fun getAllPerformanceSubmission(): List<PerformanceSubmission>

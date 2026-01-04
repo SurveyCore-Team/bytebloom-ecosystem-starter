@@ -1,6 +1,6 @@
-package repositories
+package domain.repository.contracts
 
-import domain.Team
+import domain.model.Team
 
 interface TeamRepository {
     fun getAllTeams(): List<Team>

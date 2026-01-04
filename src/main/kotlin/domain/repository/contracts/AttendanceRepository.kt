@@ -1,7 +1,6 @@
-package repositories
+package domain.repository.contracts
 
-import domain.Attendance
-
+import domain.model.Attendance
 
 interface AttendanceRepository {
     fun getAllAttendances(): List<Attendance>
