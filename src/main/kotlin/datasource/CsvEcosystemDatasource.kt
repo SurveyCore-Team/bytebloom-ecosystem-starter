@@ -4,9 +4,7 @@ import datasource.mapper.DataLinker
 import datasource.parser.CsvParser
 import model.*
 
-class CsvEcosystemDatasource() : EcosystemDatasource {
-    private val parser = CsvParser()
-    private val linker = DataLinker()
+class CsvEcosystemDatasource(private val parser: CsvParser, private val linker: DataLinker) : EcosystemDatasource {
     private val menteesWithDetails: List<MenteeRaw>
     private val teamsWithMembers: List<TeamRaw>
 
