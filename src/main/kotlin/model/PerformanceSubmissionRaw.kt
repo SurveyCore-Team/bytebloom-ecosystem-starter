@@ -1,4 +1,4 @@
-package models
+package model
 
 data class PerformanceSubmissionRaw(
     val id: String,

@@ -1,14 +1,14 @@
 package datasource
-import models.AttendanceRaw
-import models.MenteeRaw
-import models.PerformanceSubmissionRaw
-import models.ProjectRaw
-import models.TeamRaw
+import model.AttendanceRaw
+import model.MenteeRaw
+import model.PerformanceSubmissionRaw
+import model.ProjectRaw
+import model.TeamRaw
 
 interface EcosystemDatasource {
         fun getAllTeams(): List<TeamRaw>
-        fun getAllMenteeRaw(): List<MenteeRaw>
-        fun getAllPerformanceSubmissionRaw(): List<PerformanceSubmissionRaw>
-        fun getAllAttendanceRaw(): List<AttendanceRaw>
-        fun getAllProjectRaw(): List<ProjectRaw>
+        fun getAllMentees(): List<MenteeRaw>
+        fun getAllPerformanceSubmissions(): List<PerformanceSubmissionRaw>
+        fun getAllAttendances(): List<AttendanceRaw>
+        fun getAllProjects(): List<ProjectRaw>
     }

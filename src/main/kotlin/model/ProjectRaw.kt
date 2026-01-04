@@ -1,4 +1,4 @@
-package models
+package model
 
 data class ProjectRaw(
     val id: String,
