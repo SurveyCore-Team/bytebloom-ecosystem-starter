@@ -1,4 +1,4 @@
-package model
+package datasource.model
 
 data class TeamRaw(
     val id :String,
