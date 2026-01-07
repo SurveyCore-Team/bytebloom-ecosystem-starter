@@ -1,14 +1,14 @@
 package datasource.mapper
 
-import model.AttendanceRaw
-import model.MenteeRaw
-import model.PerformanceSubmissionRaw
-import model.TeamRaw
+import datasource.model.AttendanceRaw
+import datasource.model.MenteeRaw
+import datasource.model.PerformanceSubmissionRaw
+import datasource.model.TeamRaw
 
 class DataLinker {
     fun linkAttendanceWithMentees(mentees: List<MenteeRaw>, attendance: List<AttendanceRaw>): List<MenteeRaw> {
-        val attendanceMap = attendance.associateBy { it.menteeId }
-        mentees.forEach { it.attendanceRecords = listOfNotNull(attendanceMap[it.id]) }
+        val attendanceMap = attendance.groupBy{ it.menteeId }
+        mentees.forEach { it.attendanceRecords = (attendanceMap[it.id] ?: emptyList()) }
         return mentees
     }
 
@@ -27,8 +27,9 @@ class DataLinker {
         performanceSubmissions: List<PerformanceSubmissionRaw>
     ): List<MenteeRaw> {
         val menteesWithAttendance = linkAttendanceWithMentees(mentees, attendance)
-        val fullyLinkedMenttes = linkPerformanceSubmissionsWithMentees(menteesWithAttendance, performanceSubmissions)
-        return fullyLinkedMenttes
+        val fullyLinkedMentees = linkPerformanceSubmissionsWithMentees(menteesWithAttendance, performanceSubmissions)
+
+        return fullyLinkedMentees
     }
     fun linkTeamsWithMentees(teams: List<TeamRaw>, linkedMentees: List<MenteeRaw>): List<TeamRaw> {
         val membersByTeams = linkedMentees.groupBy { it.teamId }

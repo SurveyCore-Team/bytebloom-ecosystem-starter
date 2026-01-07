@@ -5,11 +5,11 @@ import domain.model.Mentee
 import domain.model.PerformanceSubmission
 import domain.model.Projects
 import domain.model.Team
-import model.AttendanceRaw
-import model.MenteeRaw
-import model.PerformanceSubmissionRaw
-import model.ProjectRaw
-import model.TeamRaw
+import datasource.model.AttendanceRaw
+import datasource.model.MenteeRaw
+import datasource.model.PerformanceSubmissionRaw
+import datasource.model.ProjectRaw
+import datasource.model.TeamRaw
 
 class DomainMapper {
     private fun mapAttendanceRawToDomain(dataAttendance: AttendanceRaw): List<Attendance> {

@@ -1,10 +1,10 @@
 package datasource.parser
 
-import model.AttendanceRaw
-import model.MenteeRaw
-import model.PerformanceSubmissionRaw
-import model.ProjectRaw
-import model.TeamRaw
+import datasource.model.AttendanceRaw
+import datasource.model.MenteeRaw
+import datasource.model.PerformanceSubmissionRaw
+import datasource.model.ProjectRaw
+import datasource.model.TeamRaw
 import java.io.File
 
 class CsvParser {
@@ -30,8 +30,13 @@ class CsvParser {
         MenteeRaw(row[0], row[1], row[2], emptyList(), emptyList())
     }
 
-    private fun parsePerformanceSubmissionsData(lines: List<List<String>>) = lines.drop(1).map { row ->
-        PerformanceSubmissionRaw(row[0], row[1], row[2], row[3])
+    private fun parsePerformanceSubmissionsData(lines: List<List<String>>) =
+        lines.drop(1).map { row ->
+            val menteeId=row[0]
+            val submissionId=row[1]
+            val typeSubmission=row[2]
+            val score=row[3]
+        PerformanceSubmissionRaw(submissionId, typeSubmission, score, menteeId)
     }
 
     private fun parseAttendancesData(lines: List<List<String>>): List<AttendanceRaw> {
