@@ -15,7 +15,6 @@ class MenteeService(
         return menteeRepository.getAllMentees().filter {
             it.hasPerfectAttendance()
         }
-
     }
 
     private fun Mentee.hasPoorAttendance(minAbsences: Int): Boolean {
@@ -41,7 +40,5 @@ class MenteeService(
     fun getPerformanceBreakdownForMentee(menteeId: String): List<PerformanceSubmission> {
         val mentee = menteeRepository.getAllMentees().find { it.id == menteeId }
         return mentee?.submissions ?: emptyList()
-
-
     }
 }
