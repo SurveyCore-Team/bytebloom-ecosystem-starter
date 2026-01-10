@@ -1,30 +1,21 @@
-import repositories.*
-import domain.EcosystemService
+import datasource.CsvEcosystemDatasource
+import datasource.parser.CsvParser
+import datasource.mapper.DataLinker
+import domain.repository.mapping.DomainMapper
+import domain.repository.internal.CsvTeamRepository
+import domain.repository.internal.CsvProjectRepository
+import domain.services.TeamService
 fun main() {
-    val mentees = parseMenteeData()
-    val team = parseTeamData()
-    val performance = parsePerformanceData()
-
-    println("Mentee count = ${mentees.size}")
-    println("Team count = ${team.size}")
-    println("Performance rows = ${performance.size}")
-    println("____________________________________")
-//    val builder = DomainBuilder()
-//    val teams = builder.buildDomain(
-//            performance.toMutableList(),
-//            team.toMutableList(),
-//            mentees.toMutableList()
-//        )
-//    val menteeList = builder.getMenteeList()
-//    val firstTeam = teams.first()
-//    println("First Team : ${firstTeam.name}")
-//
-//    val menteesInsideThisTeam = menteeList.filter { it.teamId == firstTeam.id }
-//    println("Mentees names Within the team :")
-//    menteesInsideThisTeam.forEach {
-//        println(it.name)
-//          }
-
+    val csvParser = CsvParser()
+    val linker = DataLinker()
+    val dataSource = CsvEcosystemDatasource(csvParser, linker)
+    val domainMapper = DomainMapper()
+    val teamRepo = CsvTeamRepository(dataSource, domainMapper)
+    val projectRepo = CsvProjectRepository(dataSource, domainMapper)
+    val teamService = TeamService(teamRepo, projectRepo)
+    println("--- Teams without projects ---")ِ
+    val result = teamService.findTeamsWithNoProject()
+    result.forEach { println(it.name) }
 }
 
 
