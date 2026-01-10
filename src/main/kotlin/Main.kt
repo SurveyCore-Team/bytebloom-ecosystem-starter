@@ -13,39 +13,7 @@ import domain.services.TeamService
 import repositories.*
 
 fun main() {
-    fun main() {
-        val parser = CsvParser()
-        val linker = DataLinker()
-        val datasource = CsvEcosystemDatasource(parser, linker)
-        val mapper = DomainMapper()
-        val teamRepo = CsvTeamRepository(datasource, mapper)
-        val menteeRepo = CsvMenteeRepository(datasource, mapper)
-        val performanceRepo = CsvPerformanceSubmissionRepository(datasource, mapper, menteeRepo)
-        val teamService = TeamService(teamRepo, performanceRepo)
-        val menteeService = MenteeService(menteeRepo, performanceRepo)
-        println("--- TeamService Testing ---")
-        val teamId = "alpha"
-        val average = teamService.getOverallPerformanceAverageForTeam(teamId)
-        println("Average performance for Team ($teamId): $average")
-
-
-        val mentorLead = teamService.findLeadMentorForMentee("m001")
-        println("Lead Mentor for mentee m001: $mentorLead")
-
-        println("\n--- MenteeService Testing ---")
-
-        val topMentee = menteeService.findTopScoringMenteeOverall()
-        if (topMentee != null) {
-            println("Top Scoring Mentee: ${topMentee.name} (ID: ${topMentee.id})")
-        } else {
-            println("No performance records found.")
-        }
-        val targetMenteeId = "m010"
-        val breakdown = menteeService.getPerformanceBreakdownForMentee(targetMenteeId)
-        println("Number of performance submissions for $targetMenteeId: ${breakdown.size}")
-    }
 }
-
 
 //    val mentees = parseMenteeData()
 //    val team = parseTeamData()
