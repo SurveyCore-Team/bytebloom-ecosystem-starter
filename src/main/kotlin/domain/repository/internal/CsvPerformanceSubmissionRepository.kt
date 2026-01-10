@@ -19,21 +19,7 @@ class CsvPerformanceSubmissionRepository(
         return mapper.mapPerformanceSubmissionsRawToDomainList(rawData)
     }
 
-    override fun getOverallPerformanceAverageForTeam(teamId: String): Double {
-        return getAllPerformanceSubmission()
-            .filter { it.id == teamId }
-            .map { it.score.toDouble() }
-            .average()
-            .takeUnless { it.isNaN() } ?: 0.0
-    }
 
-    override fun findTopScoringMenteeOverall(): Mentee? {
-        val topSubmission = getAllPerformanceSubmission()
-            .maxByOrNull { it.score }
-        return topSubmission?.let { submission ->
-            menteeRepository.getMenteeById(submission.menteeId)
-        }
-    }
 
 
 }
