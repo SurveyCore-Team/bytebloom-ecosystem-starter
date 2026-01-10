@@ -9,7 +9,7 @@ class CsvAttendanceRepository(private val datasource: EcosystemDatasource, priva
     AttendanceRepository {
 
     override fun getAllAttendances(): List<Attendance> {
-        val dataAllAttendance =datasource.getAllAttendances()
+        val dataAllAttendance = datasource.getAllAttendances()
         return mapper.mapAttendanceRawToDomainList(dataAllAttendance)
     }
 }

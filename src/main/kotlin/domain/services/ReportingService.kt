@@ -11,6 +11,6 @@ class ReportingService(
 
     fun generateTeamAttendanceReport(teamId: String): Map<String, List<Attendance>> {
         val team = teamRepository.getAllTeams().find { it.id == teamId }
-        return team?.members?.associate { it.name to it.attendance } ?: emptyMap()
+        return team?.members?.associate { it.name to it.attendanceRecords } ?: emptyMap()
     }
 }

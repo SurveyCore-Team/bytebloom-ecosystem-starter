@@ -17,6 +17,7 @@ class TeamService(
         }
         return team?.mentorLead
     }
+
     fun getOverallPerformanceAverageForTeam(teamId: String): Double {
         val team = teamRepository.getAllTeams()
             .find { it.id == teamId }
@@ -25,6 +26,7 @@ class TeamService(
         return allScoring.average()
 
     }
+
     fun findTeamsWithNoProject(): List<Team> {
         val allTeams: List<Team> = teamRepository.getAllTeams()
         val allProjects: List<Projects> = projectRepository.getAllProjects()
@@ -38,5 +40,4 @@ class TeamService(
         val allProjects: List<Projects> = projectRepository.getAllProjects()
         return allProjects.find { it.teamId == teamId }
     }
-
 }
