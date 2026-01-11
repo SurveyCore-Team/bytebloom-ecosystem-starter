@@ -34,7 +34,12 @@ fun main() {
     println("Poor Attendance (Absences > $threshold): ${flaggedMentees.map { it.name }.ifEmpty { "None" }}")
 
     val topScoreMentee = menteeService.findTopScoringMenteeOverall()
-    println("System Top Scorer: ${topScoreMentee?.name}")
+    if(topScoreMentee != null) {
+        val avg = topScoreMentee.submissions.map { it.score.toDouble() }.average()
+        println("The top mentee is ${topScoreMentee.name} with an overall average of ${String.format("%.2f", avg)}")
+    }else{
+        println("Result :No Mentees found or no performance data available")
+    }
 
     val targetMenteeId = "m001"
     println("\nPerformance Breakdown for ID $targetMenteeId:")
