@@ -29,11 +29,17 @@ class MenteeService(
 
     fun findTopScoringMenteeOverall(): Mentee? {
         val mentees = menteeRepository.getAllMentees()
+        if (mentees.isEmpty()) return null
         return mentees.maxByOrNull { mentee ->
-            mentee.submissions
-                .map { it.score.toDouble() }
-                .average()
-                .takeUnless { it.isNaN() } ?: 0.0
+            val currentSubmissions = mentee.submissions ?: emptyList()
+            val scores = currentSubmissions.mapNotNull {
+                it.score.toString().toDoubleOrNull()
+            }
+            if (scores.isEmpty()) {
+                0.0
+            } else {
+                scores.average()
+            }
         }
     }
 
