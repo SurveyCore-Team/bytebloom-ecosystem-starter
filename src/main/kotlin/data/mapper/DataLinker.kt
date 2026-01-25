@@ -1,9 +1,9 @@
-package datasource.mapper
+package data.mapper
 
-import datasource.model.AttendanceRaw
-import datasource.model.MenteeRaw
-import datasource.model.PerformanceSubmissionRaw
-import datasource.model.TeamRaw
+import data.model.AttendanceRaw
+import data.model.MenteeRaw
+import data.model.PerformanceSubmissionRaw
+import data.model.TeamRaw
 
 class DataLinker {
     fun linkAttendanceWithMentees(mentees: List<MenteeRaw>, attendance: List<AttendanceRaw>): List<MenteeRaw> {

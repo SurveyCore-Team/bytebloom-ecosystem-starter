@@ -1,4 +1,4 @@
-package datasource.model
+package data.model
 
 data class ProjectRaw(
     val id: String,

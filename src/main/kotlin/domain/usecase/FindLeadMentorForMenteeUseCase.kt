@@ -1,4 +1,4 @@
-package domain.useCase
+package domain.usecase
 
 class FindLeadMentorForMenteeUseCase {
 

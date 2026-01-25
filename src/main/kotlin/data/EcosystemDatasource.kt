@@ -1,9 +1,9 @@
-package datasource
-import datasource.model.AttendanceRaw
-import datasource.model.MenteeRaw
-import datasource.model.PerformanceSubmissionRaw
-import datasource.model.ProjectRaw
-import datasource.model.TeamRaw
+package data
+import data.model.AttendanceRaw
+import data.model.MenteeRaw
+import data.model.PerformanceSubmissionRaw
+import data.model.ProjectRaw
+import data.model.TeamRaw
 
 interface EcosystemDatasource {
         fun getAllTeams(): List<TeamRaw>

@@ -1,10 +1,10 @@
-package domain.repository.internal
+package data.repository
 
 import domain.model.PerformanceSubmission
-import domain.repository.contracts.PerformanceSubmissionRepository
-import datasource.EcosystemDatasource
-import domain.repository.contracts.MenteeRepository
-import domain.repository.mapping.DomainMapper
+import domain.repository.PerformanceSubmissionRepository
+import data.EcosystemDatasource
+import domain.repository.MenteeRepository
+import data.mapper.DomainMapper
 
 class CsvPerformanceSubmissionRepository(
     private val datasource: EcosystemDatasource,

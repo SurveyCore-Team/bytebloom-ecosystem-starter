@@ -1,10 +1,10 @@
-import datasource.parser.CsvParser
-import datasource.CsvEcosystemDatasource
-import datasource.mapper.DataLinker
-import domain.repository.internal.CsvMenteeRepository
-import domain.repository.mapping.DomainMapper
-import domain.repository.internal.CsvTeamRepository
-import domain.repository.internal.CsvProjectRepository
+import data.parser.CsvParser
+import data.CsvEcosystemDatasource
+import data.mapper.DataLinker
+import data.repository.CsvMenteeRepository
+import data.mapper.DomainMapper
+import data.repository.CsvTeamRepository
+import data.repository.CsvProjectRepository
 import domain.services.MenteeService
 import domain.services.ReportingService
 import domain.services.TeamService

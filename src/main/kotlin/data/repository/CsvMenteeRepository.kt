@@ -1,9 +1,9 @@
-package domain.repository.internal
+package data.repository
 
-import datasource.EcosystemDatasource
+import data.EcosystemDatasource
 import domain.model.Mentee
-import domain.repository.contracts.MenteeRepository
-import domain.repository.mapping.DomainMapper
+import domain.repository.MenteeRepository
+import data.mapper.DomainMapper
 
 class CsvMenteeRepository(
     private val datasource: EcosystemDatasource,

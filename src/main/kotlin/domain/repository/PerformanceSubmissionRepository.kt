@@ -1,4 +1,4 @@
-package domain.repository.contracts
+package domain.repository
 
 import domain.model.PerformanceSubmission
 
