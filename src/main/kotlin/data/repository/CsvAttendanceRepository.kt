@@ -1,9 +1,9 @@
-package domain.repository.internal
+package data.repository
 
-import datasource.EcosystemDatasource
+import data.EcosystemDatasource
 import domain.model.Attendance
-import domain.repository.contracts.AttendanceRepository
-import domain.repository.mapping.DomainMapper
+import domain.repository.AttendanceRepository
+import data.mapper.DomainMapper
 
 class CsvAttendanceRepository(private val datasource: EcosystemDatasource, private val mapper: DomainMapper) :
     AttendanceRepository {

@@ -1,10 +1,10 @@
-package datasource.parser
+package data.parser
 
-import datasource.model.AttendanceRaw
-import datasource.model.MenteeRaw
-import datasource.model.PerformanceSubmissionRaw
-import datasource.model.ProjectRaw
-import datasource.model.TeamRaw
+import data.model.AttendanceRaw
+import data.model.MenteeRaw
+import data.model.PerformanceSubmissionRaw
+import data.model.ProjectRaw
+import data.model.TeamRaw
 import java.io.File
 
 class CsvParser {

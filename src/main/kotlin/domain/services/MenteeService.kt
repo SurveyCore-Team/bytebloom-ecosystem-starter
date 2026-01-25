@@ -2,7 +2,7 @@ package domain.services
 
 import domain.model.Mentee
 import domain.model.PerformanceSubmission
-import domain.repository.contracts.MenteeRepository
+import domain.repository.MenteeRepository
 
 class MenteeService(
     private val menteeRepository: MenteeRepository

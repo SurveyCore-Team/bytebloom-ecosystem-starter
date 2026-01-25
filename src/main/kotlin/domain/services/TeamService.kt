@@ -2,8 +2,8 @@ package domain.services
 
 import domain.model.Team
 import domain.model.Projects
-import domain.repository.contracts.TeamRepository
-import domain.repository.contracts.ProjectRepository
+import domain.repository.TeamRepository
+import domain.repository.ProjectRepository
 
 class TeamService(
     private val teamRepository: TeamRepository,
