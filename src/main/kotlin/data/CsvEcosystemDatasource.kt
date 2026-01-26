@@ -1,8 +1,8 @@
-package datasource
+package data
 
-import datasource.mapper.DataLinker
-import datasource.parser.CsvParser
-import datasource.model.*
+import data.mapper.DataLinker
+import data.parser.CsvParser
+import data.model.*
 
 class CsvEcosystemDatasource(private val parser: CsvParser, private val linker: DataLinker) : EcosystemDatasource {
     private val menteesWithDetails: List<MenteeRaw>

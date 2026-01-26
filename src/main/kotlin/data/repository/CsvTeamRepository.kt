@@ -1,9 +1,9 @@
-package domain.repository.internal
+package data.repository
 
-import datasource.EcosystemDatasource
+import data.EcosystemDatasource
 import domain.model.Team
-import domain.repository.contracts.TeamRepository
-import domain.repository.mapping.DomainMapper
+import domain.repository.TeamRepository
+import data.mapper.DomainMapper
 
 class CsvTeamRepository(
     private val datasource: EcosystemDatasource,

@@ -1,9 +1,9 @@
-package domain.repository.internal
+package data.repository
 
-import datasource.EcosystemDatasource
+import data.EcosystemDatasource
 import domain.model.Projects
-import domain.repository.mapping.DomainMapper
-import domain.repository.contracts.ProjectRepository
+import data.mapper.DomainMapper
+import domain.repository.ProjectRepository
 
 class CsvProjectRepository(
     private val datasource: EcosystemDatasource,

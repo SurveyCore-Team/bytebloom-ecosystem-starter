@@ -1,7 +1,7 @@
 package domain.services
 
 import domain.model.Attendance
-import domain.repository.contracts.TeamRepository
+import domain.repository.TeamRepository
 import java.util.Collections.emptyMap
 
 

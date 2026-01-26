@@ -1,10 +1,10 @@
-import datasource.parser.CsvParser
-import datasource.CsvEcosystemDatasource
-import datasource.mapper.DataLinker
-import domain.repository.internal.CsvMenteeRepository
-import domain.repository.mapping.DomainMapper
-import domain.repository.internal.CsvTeamRepository
-import domain.repository.internal.CsvProjectRepository
+import data.parser.CsvParser
+import data.CsvEcosystemDatasource
+import data.mapper.DataLinker
+import data.repository.CsvMenteeRepository
+import data.mapper.DomainMapper
+import data.repository.CsvTeamRepository
+import data.repository.CsvProjectRepository
 import domain.services.MenteeService
 import domain.services.ReportingService
 import domain.services.TeamService
@@ -30,11 +30,10 @@ fun main() {
     println("==========================================\n")
     println(">>> [SECTION 1: MENTEE ANALYTICS]")
     val nameMentor= "Alice"
-    val m = mentorWithMentee.execute(nameMentor)
-    println("The MenteesFor Mentoring $nameMentor : ")
-    m.forEach { println("\t\t\t-$it")}
-    println("The Mentor of Mentee ${mento.execute("m003")}")
-
+//    val m = mentorWithMentee.execute(nameMentor)
+//    println("The MenteesFor Mentoring $nameMentor : ")
+//    m.forEach { println("\t\t\t-$it")}
+//    println("The Mentor of Mentee ${mento.execute("m003")}")
 
 //    val perfectMentees = menteeService.findMenteesWithPerfectAttendance()
 //    println("Perfect Attendance (100%): ${perfectMentees.map { it.name }.ifEmpty { "No records found" }}")

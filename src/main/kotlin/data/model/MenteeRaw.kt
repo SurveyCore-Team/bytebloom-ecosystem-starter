@@ -1,4 +1,4 @@
-package datasource.model
+package data.model
 
 data class MenteeRaw(
     val id:String,
