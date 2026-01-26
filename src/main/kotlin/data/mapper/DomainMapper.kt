@@ -24,7 +24,7 @@ class DomainMapper {
     private fun mapPerformanceSubmissionsRawToDomain(dataRaw: PerformanceSubmissionRaw): PerformanceSubmission {
         return PerformanceSubmission(
             dataRaw.id, dataRaw.type,
-            dataRaw.score.toDouble(),
+            dataRaw.score.toDoubleOrNull() ?: 0.0,
             dataRaw.menteeId
         )
     }
