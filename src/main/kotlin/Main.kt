@@ -5,9 +5,6 @@ import data.repository.CsvMenteeRepository
 import data.mapper.DomainMapper
 import data.repository.CsvTeamRepository
 import data.repository.CsvProjectRepository
-import domain.services.MenteeService
-import domain.services.ReportingService
-import domain.services.TeamService
 import domain.useCase.mentor.FindLeadMentorForMenteeUseCase
 import domain.useCase.mentor.GetMentorTeamMenteesUseCase
 
@@ -19,21 +16,51 @@ fun main() {
     val teamRepository = CsvTeamRepository(dataSource, domainMapper)
     val menteeRepository = CsvMenteeRepository(dataSource, domainMapper)
     val projectRepo = CsvProjectRepository(dataSource, domainMapper)
-    val teamService = TeamService(teamRepository, projectRepo)
-    val menteeService = MenteeService(menteeRepository)
-    val reportService = ReportingService(teamRepository)
     val mento= FindLeadMentorForMenteeUseCase(teamRepository)
-    val mentorWithMentee= GetMentorTeamMenteesUseCase(teamRepository)
+    val getMentorMentees= GetMentorTeamMenteesUseCase(teamRepository)
 
     println("==========================================")
     println("   SYSTEM FUNCTIONALITY VERIFICATION      ")
     println("==========================================\n")
     println(">>> [SECTION 1: MENTEE ANALYTICS]")
-    val nameMentor= "Alice"
-//    val m = mentorWithMentee.execute(nameMentor)
-//    println("The MenteesFor Mentoring $nameMentor : ")
-//    m.forEach { println("\t\t\t-$it")}
-//    println("The Mentor of Mentee ${mento.execute("m003")}")
+    val resul = mento("m00") ?: "Not Found"
+    println("The Mentor of Mentee: $resul")
+    val nameMentor= "alice"
+    val result = getMentorMentees(nameMentor)
+    if (result == null) {
+        println("Error: Mentor not found in the system.")
+    } else if (result.isEmpty()) {
+        println("Warning: Mentor exists, but the team is currently empty.")
+    } else {
+        println(" Success: Mentees found: $result")
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    println("The Mentor of Mentee ${mento("m003")}")
 
 //    val perfectMentees = menteeService.findMenteesWithPerfectAttendance()
 //    println("Perfect Attendance (100%): ${perfectMentees.map { it.name }.ifEmpty { "No records found" }}")
