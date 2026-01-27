@@ -3,7 +3,7 @@ import domain.model.Team
 import domain.repository.TeamRepository
 import domain.usecase.BaseUseCase
 
-class GetTeamPerformanceRankingUseCase(
+class getTeamPerformanceRankingUseCase(
     private val teamRepository: TeamRepository
 ): BaseUseCase<Unit, List<Pair<Team, Double>>> {
     override fun invoke(input: Unit): List<Pair<Team, Double>> =
