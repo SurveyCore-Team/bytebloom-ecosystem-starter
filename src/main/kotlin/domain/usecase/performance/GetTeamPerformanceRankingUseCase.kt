@@ -18,4 +18,4 @@ class getTeamPerformanceRankingUseCase(
             }
             .sortedByDescending { (_, average) -> average }
             .toList()
-}
+ }
