@@ -1,7 +1,7 @@
 package domain.services
 
 import domain.model.Team
-import domain.model.Projects
+import domain.model.Project
 import domain.repository.TeamRepository
 import domain.repository.ProjectRepository
 
@@ -29,15 +29,15 @@ class TeamService(
 
     fun findTeamsWithNoProject(): List<Team> {
         val allTeams: List<Team> = teamRepository.getAllTeams()
-        val allProjects: List<Projects> = projectRepository.getAllProjects()
+        val allProjects: List<Project> = projectRepository.getAllProjects()
 
         val assignedTeamIds: Set<String> = allProjects.map { it.teamId }.toSet()
 
         return allTeams.filter { team: Team -> team.id !in assignedTeamIds }
     }
 
-    fun findProjectAssignedToTeam(teamId: String): Projects? {
-        val allProjects: List<Projects> = projectRepository.getAllProjects()
+    fun findProjectAssignedToTeam(teamId: String): Project? {
+        val allProjects: List<Project> = projectRepository.getAllProjects()
         return allProjects.find { it.teamId == teamId }
     }
 }
