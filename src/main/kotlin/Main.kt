@@ -5,8 +5,21 @@ import data.repository.CsvMenteeRepository
 import data.mapper.DomainMapper
 import data.repository.CsvTeamRepository
 import data.repository.CsvProjectRepository
-import domain.useCase.mentor.FindLeadMentorForMenteeUseCase
-import domain.useCase.mentor.GetMentorTeamMenteesUseCase
+import domain.usecase.attendance.FindMenteesWithPerfectAttendanceUseCase
+import domain.usecase.attendance.FindMenteesWithPoorAttendanceUseCase
+import domain.usecase.attendance.GenerateTeamAttendanceReportUseCase
+import domain.usecase.attendance.GetMenteesWithAllAbsencesUseCase
+import domain.usecase.attendance.GetTopMenteesByAttendanceCountUseCase
+import domain.usecase.mentor.FindLeadMentorForMenteeUseCase
+import domain.usecase.mentor.GetMentorTeamMenteesUseCase
+import domain.usecase.performance.FindTopScoringMenteeOverAllUseCase
+import domain.usecase.performance.GetMenteePerformanceSummaryUseCase
+import domain.usecase.performance.GetOverallPerformanceAverageForTeamUseCase
+import domain.usecase.performance.GetPerformanceBreakdownForMenteeUseCase
+import domain.usecase.performance.GetTeamPerformanceRankingUseCase
+import domain.usecase.project.FindTeamsWithNoProjectUseCase
+import domain.usecase.project.GetProjectTraineesNamesUseCase
+import domain.usecase.project.GetTraineesWithNoProjectsUseCase
 
 fun main() {
     val csvParser = CsvParser()
@@ -15,107 +28,219 @@ fun main() {
     val domainMapper = DomainMapper()
     val teamRepository = CsvTeamRepository(dataSource, domainMapper)
     val menteeRepository = CsvMenteeRepository(dataSource, domainMapper)
-    val projectRepo = CsvProjectRepository(dataSource, domainMapper)
-    val mento= FindLeadMentorForMenteeUseCase(teamRepository)
-    val getMentorMentees= GetMentorTeamMenteesUseCase(teamRepository)
+    val projectRepository = CsvProjectRepository(dataSource, domainMapper)
 
-    println("==========================================")
-    println("   SYSTEM FUNCTIONALITY VERIFICATION      ")
-    println("==========================================\n")
-    println(">>> [SECTION 1: MENTEE ANALYTICS]")
-    val resul = mento("m00") ?: "Not Found"
-    println("The Mentor of Mentee: $resul")
-    val nameMentor= "alice"
-    val result = getMentorMentees(nameMentor)
-    if (result == null) {
-        println("Error: Mentor not found in the system.")
-    } else if (result.isEmpty()) {
-        println("Warning: Mentor exists, but the team is currently empty.")
-    } else {
-        println(" Success: Mentees found: $result")
+    // 1. Initialize the repository and use case
+    println("\n-----------------------Attendance---------------------------\n")
+    val findPerfectAttendance = FindMenteesWithPerfectAttendanceUseCase(menteeRepository)
+    println("🔍 Checking for mentees with perfect attendance...")
+    val perfectAttendees = findPerfectAttendance(Unit)
+    when {
+        perfectAttendees.isEmpty() -> {
+            println("⚠️ No Mentees Found: No one has achieved a 100% attendance record yet.")
+        }
+
+        else -> {
+            println("✅ Success: Found ${perfectAttendees.size} Perfect Attendance Heroes: ${perfectAttendees.map { it.name }}")
+            println("Keep up the great work, everyone! 🌟")
+        }
     }
+    println("\n--------------------------------------------------\n")
+    val findPoorAttendance = FindMenteesWithPoorAttendanceUseCase(menteeRepository)
+    println("🔍 Scanning for attendance issues...")
+    val poorAttendees = findPoorAttendance(2)
+    when {
+        poorAttendees.isEmpty() -> {
+            println("✅ Great News: No mentees meet the poor attendance criteria.")
+        }
 
+        else -> {
+            println("⚠️ Attention: Found ${poorAttendees.size} mentees with low attendance: ${poorAttendees.map { it.name }}")
+            println("Action Required: Please follow up with these students. 📋")
+        }
+    }
+    println("\n--------------------------------------------------\n")
+    val targetTeamId = "bravo"
+    println("Generating Report for Team $targetTeamId:")
+    val attendanceReport = GenerateTeamAttendanceReportUseCase(teamRepository)(targetTeamId)
+    when {
+        attendanceReport.isEmpty() -> {
+            println("- No attendance report available for this team.")
+        }
 
+        else -> {
+            attendanceReport.forEach { (name, records) ->
+                println("- Mentee: $name | Records Count: ${records.size}")
+            }
+        }
+    }
+    println("\n--------------------------------------------------\n")
+    val findAllAbsent = GetMenteesWithAllAbsencesUseCase(menteeRepository)
+    println("🔍 Checking for critical attendance issues...")
+    val absentList = findAllAbsent(Unit)
+    when {
+        absentList.isEmpty() -> {
+            println("✅ Good News: No mentees have a 100% absence record.")
+        }
 
+        else -> {
+            println("🚨 Critical: Found ${absentList.size} mentees with zero attendance: ${absentList.map { it.name }}")
+        }
+    }
+    println("\n--------------------------------------------------\n")
+    val getTopAttendance = GetTopMenteesByAttendanceCountUseCase(menteeRepository)
+    println("📊 Generating Attendance Leaderboard...")
+    val topMentees = getTopAttendance(5)
+    when {
+        topMentees.isEmpty() -> {
+            println("ℹ️ System Note: No attendance data available to rank mentees.")
+        }
 
+        else -> {
+            println("🏆 Attendance Leaders (Top ${topMentees.size}):")
+            topMentees.forEachIndexed { index, mentee ->
+                println("${index + 1}. ${mentee.name} - Sessions Attended: ${mentee.attendanceRecords.count { it.status.lowercase() == "present" }}")
+            }
+            println("Congratulations to our most committed students! 👏")
+        }
+    }
+    println("\n-----------------------Mentor---------------------------\n")
+    val findLeadMentor = FindLeadMentorForMenteeUseCase(teamRepository)
+    val targetMenteeId = "m003"
+    println("🔍 Identifying the Lead Mentor for Mentee ID: $targetMenteeId...")
+    val mentorName = findLeadMentor(targetMenteeId)
+    when (mentorName) {
+        null -> {
+            println("⚠️ Result: No Lead Mentor assigned. This mentee might not be part of any team.")
+        }
 
+        else -> {
+            println("✅ Success: The Lead Mentor for this mentee is: **$mentorName**")
+        }
+    }
+    println("\n--------------------------------------------------\n")
+    val getTeamMentees = GetMentorTeamMenteesUseCase(teamRepository)
+    val mentorSearch = "Alice"
+    println("📂 Fetching team roster for Mentor: $mentorSearch...")
+    val menteeNames = getTeamMentees(mentorSearch)
+    when {
+        menteeNames == null -> {
+            println("❌ Error: Mentor '$mentorSearch' was not found in our records.")
+        }
 
+        menteeNames.isEmpty() -> {
+            println("⚠️ Note: Mentor '$mentorSearch' exists, but currently has no mentees assigned.")
+        }
 
+        else -> {
+            println("✅ Success: Found ${menteeNames.size} mentees under $mentorSearch's leadership:")
+            menteeNames.forEachIndexed { index, name ->
+                println("   ${index + 1}. $name")
+            }
+        }
+    }
+    println("\n-----------------------Performance---------------------------\n")
+    val findTopScorer = FindTopScoringMenteeOverAllUseCase(menteeRepository)
+    println("🏆 Identifying the Overall Top Scoring Mentee...")
+    val topMentee = findTopScorer(Unit)
+    when (topMentee) {
+        null -> println("ℹ️ System Note: No mentee data found to calculate rankings.")
+        else -> {
+            println("🌟 Grand Achievement: **${topMentee.name}** is our Top Performer!")
+            val average = topMentee.submissions.map { it.score }.average()
+            println("📊 Average Score: ${"%.2f".format(average)}")
+        }
+    }
+    println("\n--------------------------------------------------\n")
+    val getPerformance = GetMenteePerformanceSummaryUseCase(menteeRepository)
+    val menteeId = "m009"
+    println("📊 Accessing performance metrics for ID: $menteeId...")
+    val summary = getPerformance(menteeId)
+    when (summary) {
+        null -> println("❌ Error: Mentee ID '$menteeId' not found in the system.")
+        else -> {
+            val (total, average, count) = summary
+            println("--- Student Performance Summary ---")
+            println("📝 Submissions: $count")
+            println("🎯 Total Score: $total")
+            println("📈 Avg Grade:   ${"%.2f".format(average)}")
+        }
+    }
+    println("\n--------------------------------------------------\n")
+    val getTeamAverage = GetOverallPerformanceAverageForTeamUseCase(teamRepository)
+    val teamId = "bravo"
+    println("📊 Calculating the overall performance average for Team: $teamId...")
+    val averageScore = getTeamAverage(teamId)
+    when {
+        averageScore > 0 -> println("📈 Team Average Score: ${"%.2f".format(averageScore)}")
+        else -> {
+            println("⚠️ Note: No performance data available for this team yet.")
+        }
+    }
+    println("\n--------------------------------------------------\n")
+    println("\nPerformance Breakdown for ID $targetMenteeId:")
+    val breakdown = GetPerformanceBreakdownForMenteeUseCase(menteeRepository)(targetMenteeId)
+    when {
+        breakdown.isEmpty() -> {
+            println("- No submissions found for this mentee.")
+        }
 
+        else -> {
+            breakdown.forEach { println("- Task ID: ${it.id} | Score: ${it.score}") }
+        }
+    }
+    println("\n--------------------------------------------------\n")
+    val getTeamRanking = GetTeamPerformanceRankingUseCase(teamRepository)
+    println("🏅 Generating Global Team Performance Rankings...")
+    val numberOfTopTeams = 3
+    val rankings = getTeamRanking(Unit).take(numberOfTopTeams)
+    when {
+        rankings.isEmpty() -> {
+            println("ℹ️ No team data available to generate rankings.")
+        }
 
+        else -> {
+            println("--- 🏆 Team Leaderboard ---")
+            rankings.forEachIndexed { index, (team, average) ->
+                println("${index + 1} ${team.name.padEnd(15)} | Global Average: ${"%.2f".format(average)}")
+            }
+            println("Analysis complete. Keep up the high standards! 🚀")
+        }
+    }
+    println("\n-----------------------Project---------------------------\n")
+    val findIdleTeams = FindTeamsWithNoProjectUseCase(teamRepository, projectRepository)
+    println("🔎 Scanning for teams without assigned projects...")
+    val idleTeams = findIdleTeams(Unit)
+    when {
+        idleTeams.isEmpty() -> {
+            println("✅ All teams are currently assigned to projects. Excellent resource allocation!")
+        }
 
+        else -> {
+            println("⚠️ Attention: Found ${idleTeams.size} team(s) without projects:")
+            idleTeams.forEach { team ->
+                println("   • Team Name: ${team.name.padEnd(15)} | ID: ${team.id}")
+            }
+        }
+    }
+    println("\n-----------------------Project---------------------------\n")
+    val getTrainees = GetProjectTraineesNamesUseCase(projectRepository, teamRepository)
+    val targetProjectId = "p11"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//    println("The Mentor of Mentee ${mento("m003")}")
-
-//    val perfectMentees = menteeService.findMenteesWithPerfectAttendance()
-//    println("Perfect Attendance (100%): ${perfectMentees.map { it.name }.ifEmpty { "No records found" }}")
-//
-//    val threshold = 2
-//    val flaggedMentees = menteeService.findMenteesWithPoorAttendance(threshold)
-//    println("Poor Attendance (Absences > $threshold): ${flaggedMentees.map { it.name }.ifEmpty { "None" }}")
-//
-//    val topScoreMentee = menteeService.findTopScoringMenteeOverall()
-//    if(topScoreMentee != null) {
-//        val avg = topScoreMentee.submissions.map { it.score.toDouble() }.average()
-//        println("The top mentee is ${topScoreMentee.name} with an overall average of ${String.format("%.2f", avg)}")
-//    }else{
-//        println("Result :No Mentees found or no performance data available")
-//    }
-//
-//    val targetMenteeId = "m001"
-//    println("\nPerformance Breakdown for ID $targetMenteeId:")
-//    val breakdown = menteeService.getPerformanceBreakdownForMentee(targetMenteeId)
-//    if (breakdown.isEmpty()) println("- No submissions found for this mentee.")
-//    else breakdown.forEach { println("- Task ID: ${it.id} | Score: ${it.score}") }
-//
-//    // --- 2. TEAM & PROJECT RELATIONSHIPS ---
-//    println("\n>>> [SECTION 2: TEAM & PROJECT LOGIC]")
-//
-//    val mentor = teamService.findLeadMentorForMentee(targetMenteeId)
-//    println("Lead Mentor for $targetMenteeId: ${mentor ?: "Not Assigned"}")
-//
-//
-//    val targetTeamId = "echo"
-//    val teamAvg = teamService.getOverallPerformanceAverageForTeam(targetTeamId)
-//    println("Team $targetTeamId Performance Average: ${String.format("%.2f", teamAvg)}%")
-//
-//    val project = teamService.findProjectAssignedToTeam(targetTeamId)
-//    println("Assigned Project for Team $targetTeamId: ${project?.name ?: "No Project Assigned"}")
-//
-//    val idleTeams = teamService.findTeamsWithNoProject()
-//    println("Teams without any Projects: ${idleTeams.map { it.name }.ifEmpty { "All teams are assigned" }}")
-//
-//    // --- 3. REPORTS ---
-//    println("\n>>> [SECTION 3: ATTENDANCE REPORTS]")
-//    println("Generating Report for Team $targetTeamId:")
-//    val attendanceReport = reportService.generateTeamAttendanceReport(targetTeamId)
-//    if (attendanceReport.isEmpty()) {
-//        println("- No attendance report available for this team.")
-//    } else {
-//        attendanceReport.forEach { (name, records) ->
-//            println("- Mentee: $name | Records Count: ${records.size}")
-//        }
-//    }
-    println("\n==========================================")
-    println("      VERIFICATION PROCESS COMPLETED      ")
-    println("==========================================")
+    println("📂 Checking project resources for: $targetProjectId...")
+    val trainees = getTrainees(targetProjectId)
+    if (trainees.isEmpty()) {
+        println("⚠️ Notification: This project currently has no assigned trainees or doesn't exist.")
+    } else {
+        println("👥 Assigned Team members: ${trainees.joinToString(" | ")}")
+    }
+    println("\n--------------------------------------------------\n")
+    val getIdleTrainees = GetTraineesWithNoProjectsUseCase(teamRepository, projectRepository)
+    println("🔍 Checking trainees availability...")
+    val idleNames = getIdleTrainees(Unit)
+    if (idleNames.isNotEmpty()) {
+        println("💡 Potential candidates for new projects: ${idleNames.joinToString(", ")}")
+    } else {
+        println("✅ All trainees are currently busy.")
+    }
 }
-
-
-
-

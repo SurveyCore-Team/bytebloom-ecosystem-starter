@@ -8,7 +8,7 @@ import data.model.TeamRaw
 import domain.model.Attendance
 import domain.model.Mentee
 import domain.model.PerformanceSubmission
-import domain.model.Projects
+import domain.model.Project
 import domain.model.Team
 
 class DomainMapper {
@@ -43,8 +43,8 @@ class DomainMapper {
 
     fun mapMenteeRawToDomainList(dataMentees: List<MenteeRaw>) = dataMentees.map { mapMenteeRawToDomain(it) }
 
-    private fun mapProjectRawToDomain(dataRaw: ProjectRaw): Projects {
-        return Projects(dataRaw.id, dataRaw.name, dataRaw.teamId)
+    private fun mapProjectRawToDomain(dataRaw: ProjectRaw): Project {
+        return Project(dataRaw.id, dataRaw.name, dataRaw.teamId)
     }
 
     fun mapProjectRawToDomainList(dataProject: List<ProjectRaw>) = dataProject.map { mapProjectRawToDomain(it) }
