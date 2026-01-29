@@ -17,6 +17,7 @@ import domain.usecase.performance.GetMenteePerformanceSummaryUseCase
 import domain.usecase.performance.GetOverallPerformanceAverageForTeamUseCase
 import domain.usecase.performance.GetPerformanceBreakdownForMenteeUseCase
 import domain.usecase.performance.GetTeamPerformanceRankingUseCase
+import domain.usecase.project.FindProjectAssignedToTeamUseCase
 import domain.usecase.project.FindTeamsWithNoProjectUseCase
 import domain.usecase.project.GetProjectTraineesNamesUseCase
 import domain.usecase.project.GetTraineesWithNoProjectsUseCase
@@ -29,7 +30,6 @@ fun main() {
     val teamRepository = CsvTeamRepository(dataSource, domainMapper)
     val menteeRepository = CsvMenteeRepository(dataSource, domainMapper)
     val projectRepository = CsvProjectRepository(dataSource, domainMapper)
-
     // 1. Initialize the repository and use case
     println("\n-----------------------Attendance---------------------------\n")
     val findPerfectAttendance = FindMenteesWithPerfectAttendanceUseCase(menteeRepository)
@@ -223,10 +223,22 @@ fun main() {
             }
         }
     }
-    println("\n-----------------------Project---------------------------\n")
+    println("\n--------------------------------------------------\n")
+    val findProject = FindProjectAssignedToTeamUseCase(projectRepository)
+    val teamIdToCheck = "echo"
+
+    println("🔍 Searching for project assigned to Team: $teamIdToCheck...")
+    val assignedProject = findProject(teamIdToCheck)
+    if (assignedProject != null) {
+        println("✅ Project Found:")
+        println("   - Name: ${assignedProject.name}")
+        println("   - ID: ${assignedProject.id}")
+    } else {
+        println("ℹ️ Status: This team is not currently assigned to any project.")
+    }
+    println("\n--------------------------------------------------\n")
     val getTrainees = GetProjectTraineesNamesUseCase(projectRepository, teamRepository)
     val targetProjectId = "p11"
-
     println("📂 Checking project resources for: $targetProjectId...")
     val trainees = getTrainees(targetProjectId)
     if (trainees.isEmpty()) {
