@@ -3,7 +3,7 @@ import domain.model.PerformanceSubmission
 import domain.repository.MenteeRepository
 import domain.usecase.BaseUseCase
 
-class getPerformanceBreakdownForMenteeUseCase(
+class GetPerformanceBreakdownForMenteeUseCase(
     private val menteeRepository: MenteeRepository
 ): BaseUseCase<String, List<PerformanceSubmission>> {
     override  fun invoke(menteeId: String): List<PerformanceSubmission> =
