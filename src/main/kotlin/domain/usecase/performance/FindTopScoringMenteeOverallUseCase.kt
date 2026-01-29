@@ -3,7 +3,7 @@ import domain.model.Mentee
 import domain.repository.MenteeRepository
 import domain.usecase.BaseUseCase
 
-class findTopScoringMenteeOverAllUseCase(
+class FindTopScoringMenteeOverAllUseCase(
     private val menteeRepository: MenteeRepository
 ): BaseUseCase<Unit, Mentee?> {
     override fun invoke(input: Unit): Mentee? {
