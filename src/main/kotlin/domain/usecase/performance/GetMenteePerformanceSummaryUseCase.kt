@@ -4,7 +4,7 @@ import domain.model.Mentee
 import domain.repository.MenteeRepository
 import domain.usecase.BaseUseCase
 
-class getMenteePerformanceSummaryUseCase(
+class GetMenteePerformanceSummaryUseCase(
     private val menteeRepository: MenteeRepository
 ): BaseUseCase<String, Triple<Double, Double, Int>> {
     override fun invoke(menteeId: String): Triple<Double, Double, Int> {
