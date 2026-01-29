@@ -3,7 +3,7 @@ package domain.useCase.project
 import domain.model.Team
 import domain.repository.ProjectRepository
 import domain.repository.TeamRepository
-import domain.useCase.BaseUseCase
+import domain.usecase.BaseUseCase
 
 class FindTeamsWithNoProjectUseCase(
     private val teamRepository: TeamRepository,
