@@ -1,7 +1,7 @@
 package domain.repository
 
-import domain.model.Projects
+import domain.model.Project
 
 interface ProjectRepository {
-    fun getAllProjects(): List<Projects>
+    fun getAllProjects(): List<Project>
 }
