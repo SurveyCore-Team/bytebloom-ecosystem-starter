@@ -1,4 +1,4 @@
-package domain.useCase.project
+package domain.usecase.project
 
 import domain.model.Team
 import domain.repository.ProjectRepository
