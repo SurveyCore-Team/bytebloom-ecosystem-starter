@@ -10,8 +10,8 @@ import domain.usecase.attendance.FindMenteesWithPoorAttendanceUseCase
 import domain.usecase.attendance.GenerateTeamAttendanceReportUseCase
 import domain.usecase.attendance.GetMenteesWithAllAbsencesUseCase
 import domain.usecase.attendance.GetTopMenteesByAttendanceCountUseCase
-import domain.usecase.mentor.FindLeadMentorForMenteeUseCase
-import domain.usecase.mentor.GetMentorTeamMenteesUseCase
+//import domain.usecase.mentor.FindLeadMentorForMenteeUseCase
+//import domain.usecase.mentor.GetMentorTeamMenteesUseCase
 import domain.usecase.performance.FindTopScoringMenteeOverAllUseCase
 import domain.usecase.performance.GetMenteePerformanceSummaryUseCase
 import domain.usecase.performance.GetOverallPerformanceAverageForTeamUseCase
@@ -105,40 +105,40 @@ fun main() {
         }
     }
     println("\n-----------------------Mentor---------------------------\n")
-    val findLeadMentor = FindLeadMentorForMenteeUseCase(teamRepository)
+//    val findLeadMentor = FindLeadMentorForMenteeUseCase(teamRepository)
     val targetMenteeId = "m003"
-    println("🔍 Identifying the Lead Mentor for Mentee ID: $targetMenteeId...")
-    val mentorName = findLeadMentor(targetMenteeId)
-    when (mentorName) {
-        null -> {
-            println("⚠️ Result: No Lead Mentor assigned. This mentee might not be part of any team.")
-        }
-
-        else -> {
-            println("✅ Success: The Lead Mentor for this mentee is: **$mentorName**")
-        }
-    }
-    println("\n--------------------------------------------------\n")
-    val getTeamMentees = GetMentorTeamMenteesUseCase(teamRepository)
-    val mentorSearch = "Alice"
-    println("📂 Fetching team roster for Mentor: $mentorSearch...")
-    val menteeNames = getTeamMentees(mentorSearch)
-    when {
-        menteeNames == null -> {
-            println("❌ Error: Mentor '$mentorSearch' was not found in our records.")
-        }
-
-        menteeNames.isEmpty() -> {
-            println("⚠️ Note: Mentor '$mentorSearch' exists, but currently has no mentees assigned.")
-        }
-
-        else -> {
-            println("✅ Success: Found ${menteeNames.size} mentees under $mentorSearch's leadership:")
-            menteeNames.forEachIndexed { index, name ->
-                println("   ${index + 1}. $name")
-            }
-        }
-    }
+//    println("🔍 Identifying the Lead Mentor for Mentee ID: $targetMenteeId...")
+//    val mentorName = findLeadMentor(targetMenteeId)
+//    when (mentorName) {
+//        null -> {
+//            println("⚠️ Result: No Lead Mentor assigned. This mentee might not be part of any team.")
+//        }
+//
+//        else -> {
+//            println("✅ Success: The Lead Mentor for this mentee is: **$mentorName**")
+//        }
+//    }
+//    println("\n--------------------------------------------------\n")
+//    val getTeamMentees = GetMentorTeamMenteesUseCase(teamRepository)
+//    val mentorSearch = "Alice"
+//    println("📂 Fetching team roster for Mentor: $mentorSearch...")
+//    val menteeNames = getTeamMentees(mentorSearch)
+//    when {
+//        menteeNames == null -> {
+//            println("❌ Error: Mentor '$mentorSearch' was not found in our records.")
+//        }
+//
+//        menteeNames.isEmpty() -> {
+//            println("⚠️ Note: Mentor '$mentorSearch' exists, but currently has no mentees assigned.")
+//        }
+//
+//        else -> {
+//            println("✅ Success: Found ${menteeNames.size} mentees under $mentorSearch's leadership:")
+//            menteeNames.forEachIndexed { index, name ->
+//                println("   ${index + 1}. $name")
+//            }
+//        }
+//    }
     println("\n-----------------------Performance---------------------------\n")
     val findTopScorer = FindTopScoringMenteeOverAllUseCase(menteeRepository)
     println("🏆 Identifying the Overall Top Scoring Mentee...")
