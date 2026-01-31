@@ -99,7 +99,7 @@ fun main() {
         else -> {
             println("🏆 Attendance Leaders (Top ${topMentees.size}):")
             topMentees.forEachIndexed { index, mentee ->
-                println("${index + 1}. ${mentee.name} - Sessions Attended: ${mentee.attendanceRecords.count { it.status.lowercase() == "present" }}")
+                println("${index + 1}. ${mentee.name} - Sessions Attended: ${mentee.attendanceRecords.size}")
             }
             println("Congratulations to our most committed students! 👏")
         }

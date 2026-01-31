@@ -5,16 +5,17 @@ import data.model.MenteeRaw
 import data.model.PerformanceSubmissionRaw
 import data.model.ProjectRaw
 import data.model.TeamRaw
-import domain.model.Attendance
+import domain.model.attendance.Attendance
 import domain.model.Mentee
 import domain.model.PerformanceSubmission
 import domain.model.Project
 import domain.model.Team
+import domain.model.attendance.AttendanceStatus
 
 class DomainMapper {
     private fun mapAttendanceRawToDomain(dataAttendance: AttendanceRaw): List<Attendance> {
         return dataAttendance.weeklyStatus.map { (weekName, statusValue) ->
-            Attendance(weekName, statusValue)
+            Attendance(weekName,AttendanceStatus.fromString(statusValue))
         }
     }
 
