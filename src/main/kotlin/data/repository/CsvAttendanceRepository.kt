@@ -1,7 +1,7 @@
 package data.repository
 
 import data.EcosystemDatasource
-import domain.model.Attendance
+import domain.model.attendance.Attendance
 import domain.repository.AttendanceRepository
 import data.mapper.DomainMapper
 
