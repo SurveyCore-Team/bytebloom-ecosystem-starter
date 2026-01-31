@@ -7,10 +7,10 @@ import domain.usecase.BaseUseCase
 class GetMenteePerformanceSummaryUseCase(
     private val menteeRepository: MenteeRepository
 ): BaseUseCase<String, Triple<Double, Double, Int>> {
-    override fun invoke(menteeId: String): Triple<Double, Double, Int> {
+    override fun invoke(menteeId: String): Triple<Double, Double, Int>? {
         return menteeRepository.getAllMentees()
-            .first { it.id == menteeId }
-            .performanceSummary()
+            .firstOrNull { it.id == menteeId }
+            ?.performanceSummary()
     }
 
     private fun Mentee.performanceSummary(): Triple<Double, Double, Int> {
