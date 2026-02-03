@@ -1,6 +1,7 @@
 package domain.usecase.attendance
 
 import domain.model.Mentee
+import domain.model.attendance.AttendanceStatus
 import domain.repository.MenteeRepository
 import domain.usecase.BaseUseCase
 
@@ -15,10 +16,6 @@ class GetTopMenteesByAttendanceCountUseCase(
     }
 
     private fun Mentee.presentCount(): Int {
-        return attendanceRecords.count { it.status.lowercase() == PRESENT }
-    }
-
-    companion object {
-        private const val PRESENT = "present"
+        return attendanceRecords.count { it.status == AttendanceStatus.PRESENT }
     }
 }

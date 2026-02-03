@@ -1,6 +1,7 @@
 package domain.usecase.attendance
 
 import domain.model.Mentee
+import domain.model.attendance.AttendanceStatus
 import domain.repository.MenteeRepository
 import domain.usecase.BaseUseCase
 
@@ -14,10 +15,11 @@ class FindMenteesWithPoorAttendanceUseCase(
     }
 
     private fun Mentee.hasPoorAttendance(minAbsences: Int): Boolean {
-        return attendanceRecords.count { it.status.lowercase() == ABSENT } > minAbsences
-    }
-    companion object {
-        private const val ABSENT= "absent"
+        return attendanceRecords.count {
+            it.status in listOf(
+                AttendanceStatus.LATE,
+                AttendanceStatus.PRESENT
+            )
+        } > minAbsences
     }
 }
-
