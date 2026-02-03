@@ -1,7 +1,6 @@
-package domain.usecase.performance
+package domain.usecase
 import domain.model.Team
 import domain.repository.TeamRepository
-import domain.usecase.BaseUseCase
 
 class GetTeamPerformanceRankingUseCase(
     private val teamRepository: TeamRepository

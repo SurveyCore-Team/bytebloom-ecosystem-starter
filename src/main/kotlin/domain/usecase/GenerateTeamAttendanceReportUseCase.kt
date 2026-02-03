@@ -1,8 +1,7 @@
-package domain.usecase.attendance
+package domain.usecase
 
 import domain.model.attendance.Attendance
 import domain.repository.TeamRepository
-import domain.usecase.BaseUseCase
 
 class GenerateTeamAttendanceReportUseCase(
     private val teamRepository: TeamRepository

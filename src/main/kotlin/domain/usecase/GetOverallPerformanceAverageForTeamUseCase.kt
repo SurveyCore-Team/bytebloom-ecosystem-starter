@@ -1,6 +1,5 @@
-package domain.usecase.performance
+package domain.usecase
 import domain.repository.TeamRepository
-import domain.usecase.BaseUseCase
 
 class GetOverallPerformanceAverageForTeamUseCase(
     private val teamRepository: TeamRepository

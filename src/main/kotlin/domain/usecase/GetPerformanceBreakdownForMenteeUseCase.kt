@@ -1,7 +1,6 @@
-package domain.usecase.performance
+package domain.usecase
 import domain.model.PerformanceSubmission
 import domain.repository.MenteeRepository
-import domain.usecase.BaseUseCase
 
 class GetPerformanceBreakdownForMenteeUseCase(
     private val menteeRepository: MenteeRepository
