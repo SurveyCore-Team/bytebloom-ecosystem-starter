@@ -1,6 +1,7 @@
 package domain.usecase.attendance
 
 import domain.model.Mentee
+import domain.model.attendance.AttendanceStatus
 import domain.repository.MenteeRepository
 import domain.usecase.BaseUseCase
 
@@ -15,10 +16,6 @@ class GetMenteesWithAllAbsencesUseCase(
 
     private fun Mentee.hasAllAbsences(): Boolean {
         return attendanceRecords.isNotEmpty() &&
-                attendanceRecords.all { it.status.lowercase() == ABSENT }
-    }
-
-    companion object {
-        private const val ABSENT = "absent"
+                attendanceRecords.all { it.status == AttendanceStatus.ABSENT }
     }
 }
