@@ -1,8 +1,7 @@
-package domain.usecase.mentor
+package domain.usecase
 
 import domain.model.Team
 import domain.repository.TeamRepository
-import domain.usecase.BaseUseCase
 
 class FindLeadMentorForMenteeUseCase(private val teamRepository: TeamRepository) : BaseUseCase<String, String?> {
     override fun invoke(menteeId: String): String? {

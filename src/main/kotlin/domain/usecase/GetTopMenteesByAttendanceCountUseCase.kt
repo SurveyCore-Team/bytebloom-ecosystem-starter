@@ -1,9 +1,8 @@
-package domain.usecase.attendance
+package domain.usecase
 
 import domain.model.Mentee
 import domain.model.attendance.AttendanceStatus
 import domain.repository.MenteeRepository
-import domain.usecase.BaseUseCase
 
 class GetTopMenteesByAttendanceCountUseCase(
     private val menteeRepository: MenteeRepository

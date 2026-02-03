@@ -1,8 +1,7 @@
-package domain.usecase.performance
+package domain.usecase
 
 import domain.model.Mentee
 import domain.repository.MenteeRepository
-import domain.usecase.BaseUseCase
 
 class GetMenteePerformanceSummaryUseCase(
     private val menteeRepository: MenteeRepository

@@ -4,7 +4,7 @@ import domain.model.Mentee
 import domain.repository.MenteeRepository
 import domain.usecase.BaseUseCase
 
-class ConsistentHighPerformersUseCase(
+class ConsistentHighPerformanceUseCase(
     private val menteeRepository: MenteeRepository
 ) : BaseUseCase<Double, List<Mentee>> {
 

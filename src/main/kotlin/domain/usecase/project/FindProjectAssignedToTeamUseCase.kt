@@ -1,21 +1,15 @@
 package domain.usecase.project
 
-import domain.model.Team
+import domain.model.Project
 import domain.repository.ProjectRepository
-import domain.repository.TeamRepository
 import domain.usecase.BaseUseCase
 
-class FindTeamsWithNoProjectUseCase(
-    private val teamRepository: TeamRepository,
+class FindProjectAssignedToTeamUseCase(
     private val projectRepository: ProjectRepository
-) : BaseUseCase<Unit, List<Team>> {
+) : BaseUseCase<String, Project?> {
 
-    override fun invoke(input: Unit): List<Team> {
-        val assignedTeamIds = projectRepository.getAllProjects()
-            .map { it.teamId }
-            .toSet()
-
-        return teamRepository.getAllTeams()
-            .filter { it.id !in assignedTeamIds }
+    override fun invoke(teamId: String): Project? {
+        return projectRepository.getAllProjects()
+            .find { it.teamId == teamId }
     }
 }
