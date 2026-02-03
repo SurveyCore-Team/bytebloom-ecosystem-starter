@@ -1,6 +1,7 @@
 package domain.usecase.attendance
 
 import domain.model.Mentee
+import domain.model.attendance.AttendanceStatus
 import domain.repository.MenteeRepository
 import domain.usecase.BaseUseCase
 
@@ -15,10 +16,5 @@ class FindMenteesWithPerfectAttendanceUseCase(
     }
 
     private fun Mentee.hasPerfectAttendance(): Boolean =
-        this.attendanceRecords.all { it.status.lowercase() == PRESENT }
-
-    companion object {
-        private const val PRESENT = "present"
-    }
-
+        this.attendanceRecords.all { it.status == AttendanceStatus.PRESENT }
 }
