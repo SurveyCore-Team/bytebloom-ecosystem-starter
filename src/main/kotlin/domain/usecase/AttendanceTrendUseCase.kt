@@ -1,9 +1,8 @@
-package domain.useCase
+package domain.usecase
 
 import domain.model.Mentee
 import domain.model.attendance.AttendanceStatus
 import domain.repository.MenteeRepository
-import domain.usecase.BaseUseCase
 
 class AttendanceTrendUseCase(
     private val menteeRepository: MenteeRepository

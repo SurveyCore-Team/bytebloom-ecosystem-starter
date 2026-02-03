@@ -1,7 +1,6 @@
-package domain.useCase
+package domain.usecase
 
 import domain.repository.MenteeRepository
-import domain.usecase.BaseUseCase
 import domain.model.Mentee
 import domain.model.attendance.AttendanceStatus
 
