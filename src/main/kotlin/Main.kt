@@ -5,6 +5,8 @@ import data.repository.CsvMenteeRepository
 import data.mapper.DomainMapper
 import data.repository.CsvTeamRepository
 import data.repository.CsvProjectRepository
+import domain.usecase.AtRiskMenteesUseCase
+import domain.usecase.ConsistentHighPerformanceUseCase
 import domain.usecase.FindMenteesWithPerfectAttendanceUseCase
 import domain.usecase.FindMenteesWithPoorAttendanceUseCase
 import domain.usecase.GenerateTeamAttendanceReportUseCase
@@ -17,6 +19,7 @@ import domain.usecase.GetMenteePerformanceSummaryUseCase
 import domain.usecase.GetOverallPerformanceAverageForTeamUseCase
 import domain.usecase.GetPerformanceBreakdownForMenteeUseCase
 import domain.usecase.GetTeamPerformanceRankingUseCase
+import domain.usecase.PerformanceConsistencyUseCase
 import domain.usecase.project.FindProjectAssignedToTeamUseCase
 import domain.usecase.project.FindTeamsWithNoProjectUseCase
 import domain.usecase.project.GetProjectTraineesNamesUseCase
@@ -254,5 +257,38 @@ fun main() {
         println("💡 Potential candidates for new projects: ${idleNames.joinToString(", ")}")
     } else {
         println("✅ All trainees are currently busy.")
+    }
+    println("\n--------------------------------------------------\n")
+    val atRiskUseCase = AtRiskMenteesUseCase(menteeRepository)
+    val input = Pair(2, 50.2)
+    val atRiskList = atRiskUseCase(input)
+    println("=== At-Risk Mentees Report ===")
+    when {
+        atRiskList.isNullOrEmpty() -> println("No mentees are currently at risk.")
+        else -> {
+            atRiskList.forEach { mentee ->
+                println("Name: ${mentee.name} | Status: AT RISK ⚠️")
+            }
+        }
+
+    }
+    println("\n--------------------------------------------------\n")
+    val highPerformanceUseCase = ConsistentHighPerformanceUseCase(menteeRepository)
+    val threshold = 99.0
+    val starPerformers = highPerformanceUseCase(threshold)
+    when {
+        starPerformers.isEmpty() -> println("No mentees met the consistency criteria.")
+        else -> {
+            starPerformers.forEach { mentee ->
+                println("Name: ${mentee.name.padEnd(10)} | Status: ⭐ CONSISTENT STAR")
+            }
+        }
+    }
+    println("\n--------------------------------------------------\n")
+    println("--- Testing Performance Consistency ---")
+    val consistencyUseCase = PerformanceConsistencyUseCase(menteeRepository)
+    val results = consistencyUseCase(99.5)
+    results.forEach { (id, status) ->
+        println("Mentee ID: $id -> Stability: $status")
     }
 }

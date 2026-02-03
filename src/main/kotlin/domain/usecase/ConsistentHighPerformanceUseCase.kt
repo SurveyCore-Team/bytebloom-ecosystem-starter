@@ -1,8 +1,7 @@
-package domain.useCase
+package domain.usecase
 
 import domain.model.Mentee
 import domain.repository.MenteeRepository
-import domain.usecase.BaseUseCase
 
 class ConsistentHighPerformanceUseCase(
     private val menteeRepository: MenteeRepository
