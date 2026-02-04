@@ -1,9 +1,8 @@
-package domain.usecase.project
+package domain.usecase
 
 import domain.model.Team
 import domain.repository.ProjectRepository
 import domain.repository.TeamRepository
-import domain.usecase.BaseUseCase
 
 class GetTraineesWithNoProjectsUseCase(
     private val teamRepository: TeamRepository,

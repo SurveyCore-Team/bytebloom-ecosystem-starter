@@ -1,8 +1,7 @@
-package domain.usecase.project
+package domain.usecase
 
 import domain.model.Project
 import domain.repository.ProjectRepository
-import domain.usecase.BaseUseCase
 
 class FindProjectAssignedToTeamUseCase(
     private val projectRepository: ProjectRepository

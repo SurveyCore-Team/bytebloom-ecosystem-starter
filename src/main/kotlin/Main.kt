@@ -21,10 +21,10 @@ import domain.usecase.GetOverallPerformanceAverageForTeamUseCase
 import domain.usecase.GetPerformanceBreakdownForMenteeUseCase
 import domain.usecase.GetTeamPerformanceRankingUseCase
 import domain.usecase.PerformanceConsistencyUseCase
-import domain.usecase.project.FindProjectAssignedToTeamUseCase
-import domain.usecase.project.FindTeamsWithNoProjectUseCase
-import domain.usecase.project.GetProjectTraineesNamesUseCase
-import domain.usecase.project.GetTraineesWithNoProjectsUseCase
+import domain.usecase.FindProjectAssignedToTeamUseCase
+import domain.usecase.FindTeamsWithNoProjectUseCase
+import domain.usecase.GetProjectTraineesNamesUseCase
+import domain.usecase.GetTraineesWithNoProjectsUseCase
 
 fun main() {
     val csvParser = CsvParser()
