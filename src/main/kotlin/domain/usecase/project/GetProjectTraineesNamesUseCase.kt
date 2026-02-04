@@ -10,13 +10,15 @@ class GetProjectTraineesNamesUseCase(
 ) : BaseUseCase<String, List<String>> {
 
     override fun invoke(projectId: String): List<String> {
-        val project = projectRepository.getAllProjects()
-            .find { it.id == projectId }
-        return project?.let { pro ->
-            teamRepository.getAllTeams()
-                .find { it.id == pro.teamId }
-                ?.members
-                ?.map { it.name }
-        } ?: emptyList()
+        val teamId = getTeamIdByProjectId(projectId) ?: return emptyList()
+        return getMenteesNameByTeamId(teamId)
     }
+
+    private fun getTeamIdByProjectId(id: String): String? =
+        projectRepository.getAllProjects().asSequence().find { it.id == id }?.teamId
+
+    private fun getMenteesNameByTeamId(id: String): List<String> = teamRepository.getAllTeams().find { it.id == id }
+        ?.members
+        ?.map { it.name }
+        ?: emptyList()
 }
