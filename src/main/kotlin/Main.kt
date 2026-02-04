@@ -5,6 +5,7 @@ import data.repository.CsvMenteeRepository
 import data.mapper.DomainMapper
 import data.repository.CsvTeamRepository
 import data.repository.CsvProjectRepository
+import domain.usecase.SearchMenteesByNameUseCase
 import domain.usecase.AtRiskMenteesUseCase
 import domain.usecase.ConsistentHighPerformanceUseCase
 import domain.usecase.FindMenteesWithPerfectAttendanceUseCase
@@ -290,5 +291,16 @@ fun main() {
     val results = consistencyUseCase(99.5)
     results.forEach { (id, status) ->
         println("Mentee ID: $id -> Stability: $status")
+    }
+    println("\n--------------------------------------------------\n")
+    val menteeName = "clara evans"
+    val searchMenteesByName = SearchMenteesByNameUseCase(menteeRepository)
+    val findMentee = searchMenteesByName(menteeName)
+    when {
+        findMentee.isEmpty() -> println("The mentee $menteeName not found ")
+        else -> {
+            println("The mentee $menteeName is found")
+            findMentee.forEach { println("\t-${it.name}") }
+        }
     }
 }
