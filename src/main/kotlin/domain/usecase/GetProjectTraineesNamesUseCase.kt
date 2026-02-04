@@ -1,8 +1,7 @@
-package domain.usecase.project
+package domain.usecase
 
 import domain.repository.ProjectRepository
 import domain.repository.TeamRepository
-import domain.usecase.BaseUseCase
 
 class GetProjectTraineesNamesUseCase(
     private val projectRepository: ProjectRepository,
